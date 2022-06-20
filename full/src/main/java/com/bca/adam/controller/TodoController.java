@@ -9,6 +9,7 @@ import com.bca.adam.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,10 +45,14 @@ public class TodoController {
         }
     }
 
+    /*
+     * basically you might want to use DTO object to store the request and response
+     * payload instead of the model itself
+     */
     @PostMapping("")
     public ResponseEntity<Todo> addTodo(@RequestBody Todo todo) {
         try {
-            if (todo.getTitle() == null) {
+            if (todo.getTitle() == null || !StringUtils.hasText(todo.getTitle())) {
                 log.info("To add item to your todo list, you must give it a title!");
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
@@ -58,6 +63,10 @@ public class TodoController {
         }
     }
 
+    /*
+     * here i give example that it is also possible receiving request payload using
+     * Map
+     */
     @PutMapping("")
     public ResponseEntity<Todo> modifyTodo(@RequestBody Map<String, String> body) {
         try {
