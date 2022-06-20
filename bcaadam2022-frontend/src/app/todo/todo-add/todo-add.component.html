@@ -1,0 +1,45 @@
+<div class="flex justify-center pt-16">
+  <div class="w-1/2 mt-7">
+    <div class="flex flex-col justify-center items-center w-full">
+      <form autocomplete="off" class="w-full" [formGroup]="addForm" (ngSubmit)="addTodo()">
+        <div class="items-center">
+          <div class="w-full mb-2">
+            <label
+              class="block text-gray-500 font-bold text-left"
+              for="title"
+            >
+              What do you want to do?
+            </label>
+          </div>
+          <div class="w-full">
+            <input
+              class="bg-gray-100 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500"
+              id="title"
+              type="text"
+              placeholder="Do something..."
+              [formControlName]="'title'"
+              required
+            />
+            <span *ngIf="!addForm.get('title')?.valid && addForm.get('title')?.touched" class="text-red-600 text-sm">Really? Nothing to do?</span>
+          </div>
+        </div>
+        <div class="flex justify-between w-full mt-10">
+          <button
+            type="button"
+            class="w-32 rounded-md bg-indigo-400 hover:bg-indigo-300 p-2 text-md focus:outline-none text-white font-semibold mb-3"
+            [routerLink]="['/']"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="w-32 rounded-md bg-indigo-400 hover:bg-indigo-300 p-2 text-md focus:outline-none text-white font-semibold mb-3"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
