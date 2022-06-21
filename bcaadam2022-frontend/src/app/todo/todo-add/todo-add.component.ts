@@ -35,13 +35,10 @@ export class TodoAddComponent implements OnInit {
     }
 
     this.form.title = this.addForm.get('title')?.value;
-    this.todoService.add(this.form).subscribe(
-      () => {
-        this.router.navigate(['/'], { queryParams: { save: 'true' } });
-      },
-      () => {
-        this.toastr.error('Failed to save todo! Please try again');
-      }
-    );
+    this.todoService.add(this.form).subscribe({
+      next: () =>
+        this.router.navigate(['/'], { queryParams: { save: 'true' } }),
+      error: () => this.toastr.error('Failed to save todo! Please try again'),
+    });
   }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { throwError } from 'rxjs';
 import { TodoService } from 'src/app/services/todo.service';
 
 @Component({
@@ -30,27 +29,27 @@ export class TodoListComponent implements OnInit {
   }
 
   getTodos = () => {
-    this.todoService.getAll().subscribe(
-      (data) => {
+    this.todoService.getAll().subscribe({
+      next: (data) => {
         this.todos = data;
       },
-      (error) => {
+      error: (error) => {
         this.toastr.error('Failed to get todo list');
         throw error;
-      }
-    );
+      },
+    });
   };
 
   updateTodo = (id: string) => {
-    this.todoService.update(id).subscribe(
-      () => {
+    this.todoService.update(id).subscribe({
+      next: () => {
         this.toastr.success('Todo updated!');
         this.getTodos();
       },
-      (error) => {
+      error: (error) => {
         this.toastr.error('Failed to update todo ☹');
         throw error;
-      }
-    );
+      },
+    });
   };
 }
