@@ -1,0 +1,90 @@
+<div class="flex h-screen w-full justify-center items-center">
+  <div
+    class="w-1/2 h-auto rounded-lg bg-gray-50 pl-5 pr-5 flex flex-col items-center shadow-md"
+  >
+    <img
+      class="flex justify-center items-center mb-5 w-48"
+      id="profile-img"
+      src="https://img.icons8.com/fluent/344/year-of-tiger.png"
+      alt="logo-image"
+    />
+    <h2 class="text-xl text-indigo-400 pb-3 font-bold">
+      BCA Advisory Program 2022
+    </h2>
+    <h2
+      class="text-lg text-red-600 font-semibold p-3 w-full h-auto bg-red-200 rounded-md"
+      *ngIf="isLoginFailed"
+    >
+      Login failed!
+    </h2>
+    <div class="w-full mb-5 mx-auto flex flex-col">
+      <form autocomplete="off" [formGroup]="loginForm" (ngSubmit)="login()">
+        <input
+          type="text"
+          placeholder="Username"
+          class="w-full text-lg text-gray-700 border-b border-gray-400 p-2 outline-none mt-3 mb-1"
+          autocomplete="off"
+          name="username"
+          [formControlName]="'username'"
+          required
+        />
+        <small
+          *ngIf="
+            loginForm.get('username')?.hasError('required') &&
+            loginForm.get('username')?.touched
+          "
+          class="text-red-600 text-sm"
+          >Username is mandatory!</small
+        >
+        <small
+          *ngIf="loginForm.get('username')?.hasError('minlength')"
+          class="text-red-600 text-sm"
+          >The minimum length for this field is
+          {{loginForm.get('username')?.errors?.['minlength'].requiredLength}}
+          characters.</small
+        >
+        <small
+          *ngIf="loginForm.get('username')?.hasError('maxlength')"
+          class="text-red-600 text-sm"
+          >The maximum length for this field is
+          {{loginForm.get('username')?.errors?.['maxlength'].requiredLength}}
+          characters.</small
+        >
+        <input
+          type="password"
+          placeholder="Password"
+          class="w-full text-lg text-gray-700 border-b border-gray-400 p-2 outline-none m-auto mt-3 mb-1"
+          autocomplete="off"
+          name="password"
+          required
+          [formControlName]="'password'"
+        />
+        <small
+          *ngIf="
+            loginForm.get('password')?.hasError('required') &&
+            loginForm.get('password')?.touched
+          "
+          class="text-red-600 text-sm"
+          >Password is mandatory!</small
+        >
+        <button
+          type="submit"
+          class="w-full rounded-md bg-indigo-400 p-2 text-lg focus:outline-none text-white font-bold my-3"
+        >
+          Sign in
+        </button>
+
+        <p class="w-full text-center text-gray-600 text-sm">
+          Not having an account?
+          <button
+            class="font-bold focus:outline-none outline-none"
+            [routerLink]="'/signup'"
+          >
+            Sign up
+          </button>
+          here
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
