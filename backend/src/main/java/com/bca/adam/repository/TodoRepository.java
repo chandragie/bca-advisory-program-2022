@@ -12,4 +12,6 @@ public interface TodoRepository extends JpaRepository<Todo, String> {
     Optional<Todo> findById(UUID id);
 
     List<Todo> findAll();
+
+    List<Todo> findByCreatedByOrderByIsDoneAscCreatedDateDesc(String userId);
 }

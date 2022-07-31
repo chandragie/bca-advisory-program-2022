@@ -4,36 +4,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.bca.adam.service.LoginService;
+import com.bca.adam.util.JWTTokenizer;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Component
-public class AuthFilter implements Filter {
+@Slf4j
+public class AuthFilter extends OncePerRequestFilter {
 
     @Value("${server.servlet.context-path}")
     String contextPath;
 
-    @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain fc) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) req;
-        HttpServletResponse response = (HttpServletResponse) res;
-
-        String auth = request.getHeader("Authorization");
-        if (null != auth || isAllowedAnonymousURL(request) || request.getRequestURI().startsWith("/adam/sign/out")) {
-            fc.doFilter(request, response);
-        } else {
-            // response.sendRedirect(request.getContextPath() + "/common/unauthorized");
-            request.getRequestDispatcher("/common/unauthorized").forward(request, response);
-        }
-    }
+    @Autowired
+    LoginService loginService;
 
     private boolean isAllowedAnonymousURL(HttpServletRequest request) {
         boolean retVal = false;
@@ -52,6 +46,36 @@ public class AuthFilter implements Filter {
 
         return retVal;
 
+    }
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+
+        String auth = request.getHeader("Authorization");
+
+        if (!isAllowedAnonymousURL(request)) {
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
+            response.setHeader("Access-Control-Allow-Headers",
+                    "Authorization, Origin, X-Requested-With, Content-Type, Accept");
+
+            if (auth == null) {
+                log.info("Auth is null");
+                request.getRequestDispatcher("/common/unauthorized").forward(request, response);
+
+            } else {
+                log.info("Auth {}", auth);
+                if (JWTTokenizer.validateJWT(auth) != null)
+                    filterChain.doFilter(request, response);
+                else
+                    request.getRequestDispatcher("/common/unauthorized").forward(request, response);
+            }
+
+        } else {
+            log.debug("Accessing anonymous URL : {}", request.getRequestURI());
+            filterChain.doFilter(request, response);
+        }
     }
 
 }

@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/common")
 public class CommonController {
 
     @GetMapping("/unauthorized")
-    public ResponseEntity<HttpStatus> unauthorized() {
-        return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+    public ResponseEntity<String> unauthorized() {
+        return new ResponseEntity<>("You are not allowed to access this page! Get the hell outta here",
+                HttpStatus.UNAUTHORIZED);
     }
 }

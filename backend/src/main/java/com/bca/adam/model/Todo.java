@@ -16,6 +16,7 @@ import org.hibernate.annotations.Type;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
@@ -23,6 +24,7 @@ import lombok.ToString;
 @Data
 @ToString
 @EqualsAndHashCode
+@NoArgsConstructor
 public class Todo {
 
     @Id
@@ -45,12 +47,16 @@ public class Todo {
     @Column(name = "is_done")
     private boolean isDone;
 
-    public Todo(String title) {
-        this.title = title;
-        this.createdDate = Calendar.getInstance().getTime();
-    }
+    @Column(name = "created_by")
+    private String createdBy;
 
-    public Todo() {
+    @Column(name = "modified_by")
+    private String modifiedBy;
+
+    public Todo(String title, String createdBy) {
+        this.title = title;
+        this.createdBy = createdBy;
+        this.createdDate = Calendar.getInstance().getTime();
     }
 
 }

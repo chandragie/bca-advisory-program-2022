@@ -26,6 +26,11 @@ public class UserController {
         try {
             if (null != user.getName() && null != user.getUsername() && null != user.getPassword()) {
 
+                // check if user already exists
+                if (userRepo.findByUsername(user.getUsername()).isPresent()) {
+                    return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+                }
+
                 User _user = userRepo
                         .save(new User(user.getUsername(), user.getName(), MD5Crypto.hash(user.getPassword())));
 

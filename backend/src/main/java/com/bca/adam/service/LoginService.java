@@ -18,9 +18,10 @@ public class LoginService {
 
     public String extractUserIdFromValidJWT(Claims claims) {
         Optional<Login> _login = loginRepo.findBySessionidAndIsValidTrue(claims.get("sessionid").toString());
-        if (_login.isPresent())
+        if (_login.isPresent()) {
+            System.out.println(_login.get().getUserId());
             return _login.get().getUserId();
-        else
+        } else
             return null;
     }
 }

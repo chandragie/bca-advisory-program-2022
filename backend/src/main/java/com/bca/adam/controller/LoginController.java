@@ -77,14 +77,9 @@ public class LoginController {
     // @PostMapping("/logout")
     @PostMapping("/out")
     @Transactional
-    public ResponseEntity<String> signout(@RequestBody HashMap<String, String> body, HttpServletRequest req) {
+    public ResponseEntity<String> signout(HttpServletRequest req) {
 
         try {
-            String username = body.get("username");
-
-            if (null == username)
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
             // validate and extract jwt claims
             Claims claim = JWTTokenizer.validateJWT(req.getHeader("Authorization").toString());
             if (null == claim)
@@ -98,12 +93,9 @@ public class LoginController {
             if (_user == null)
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
-            if (!_user.getUsername().equalsIgnoreCase(username))
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
             loginRepo.logout(_user.getId().toString());
 
-            return new ResponseEntity<>(username + " has successfully logged out", HttpStatus.OK);
+            return new ResponseEntity<>(_user.getUsername() + " has successfully logged out", HttpStatus.OK);
 
         } catch (MalformedJwtException e) {
             e.printStackTrace();
