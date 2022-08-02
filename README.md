@@ -1,12 +1,12 @@
 # BCA Advisory Program 2022 - Web
 
-## Hi and welcome to the program! ��
+## Hi and welcome to the program! 👋
 
 I am Chandra, your mentor and nice to meet you. Our curricullum consists of 4 days activities of web development.
 
-What we are gonna do is building a simple to-do list web app with NextJS, Tailwind CSS for the frontend and Java Spring Boot for the backend.
+What we are gonna do is building a simple to-do list web app with Angular, Tailwind CSS for the frontend and Java Spring Boot + Postgres for the backend.
 
-**Since everyone is here, let's start!**
+**Since everyone is here, let's start! 🐱‍👤**
 
 ---
 
@@ -92,7 +92,9 @@ Checkpoints:
 
 ---
 
-### Day 3 :: Securing our application
+### Day 3 :: Securing Our Application
+
+Explained in: [Advisory Program 2022 (Chapter 3) : Securing Our Application](https://chandrawijaya.me/blog/advisory-program-2022-chapter-3-securing-our-application)
 
 Syllabus:
 
@@ -106,7 +108,7 @@ Checkpoints:
 
 - The importance of Security
   - Security breach cases
-  - OWASP Top 10
+  - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - Environment Setup
   - Install Burpuite
 - Chapter Objectives
@@ -119,7 +121,11 @@ Checkpoints:
   - Add security layer to our backend APIs (login system, auth filter)
   - Improve our frontend to work with the APIs
 
+---
+
 ### Day 4 :: Containerize Your App!
+
+Explained in: [Advisory Program 2022 (Chapter 4) : Containerize Your App!](https://chandrawijaya.me/blog/advisory-program-2022-chapter-4-containerize-your-app)
 
 Syllabus:
 
@@ -150,7 +156,7 @@ The curricullum I prepared is obviously cover just the basics and not for produc
 
 The key to be a better and better web developer each day is **never stop learning** because in this field, every hour passes some new things are created. 
 
-We are dealing with a very fast pace, it is most likely we will not be able to keep up with that. My advice is, focus and be strong in the basic concepts, the radix, and do not FOMO, you're gonna stress yourself �� .
+We are dealing with a very fast pace, it is most likely we will not be able to keep up with that. My advice is, focus and be strong in the basic concepts, the radix, and do not FOMO, you're gonna stress yourself 😵 .
 
 However, there are other things I have to add and they are also important for you to know:
 
@@ -162,6 +168,8 @@ However, there are other things I have to add and they are also important for yo
 
 ## Closing
 
-So that's it! Congratulations! You've finished the program. Hope what I share can be useful stuffs for you to be a web developer.
+So that's it! Congratulations! 🎉🎉🎉 You've finished the program.
 
-Never stop learning and see you again! ��
+Hope what I share can be useful stuffs for you to be a web developer.
+
+Never stop learning and see you again! 👋
